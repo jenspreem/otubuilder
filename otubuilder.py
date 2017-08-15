@@ -70,15 +70,15 @@ while True:
 			# right now my indels are all 3bp dels
 				if randint(0,5)==0: #do dels
 					del_loc=randint(0,len(seq)-1)
-					seq = seq[:del_loc] + seq[del_loc+3:]#what if del_loc is in last 2 bp?
+					copseq = seq[:del_loc] + seq[del_loc+3:]#what if del_loc is in last 2 bp?
 					substitutions=substitutions-1
 				else : #do subs
 					sub_loc=randint(0,len(seq)-1)
 					subnt=substitute(seq[sub_loc])
-					seq = seq[:sub_loc] + subnt + seq[sub_loc+1:]#what if subnt is the last nucleotide?
+					copseq = seq[:sub_loc] + subnt + seq[sub_loc+1:]#what if subnt is the last nucleotide?
 					substitutions=substitutions-1
 		print name+"obcpy"+str(copynr)
-		print seq
+		print copseq
 		copynr=copynr-1
 	orig_seq_index+=1
 		
