@@ -56,7 +56,7 @@ while True:
 		x=len(seq)*3/100
 		substitutions=randint(0, x)#lets make 0 to 3 perc difference then
 		if substitutions==0:
-			print name
+			print name+"obcpy"+str(copynr)
 			print seq
 			copynr=copynr-1
 			continue
@@ -77,7 +77,7 @@ while True:
 					subnt=substitute(seq[sub_loc])
 					seq = seq[:sub_loc] + subnt + seq[sub_loc+1:]#what if subnt is the last nucleotide?
 					substitutions=substitutions-1
-		print name
+		print name+"obcpy"+str(copynr)
 		print seq
 		copynr=copynr-1
 	orig_seq_index+=1
