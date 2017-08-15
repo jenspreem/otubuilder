@@ -23,6 +23,8 @@ def substitute(char):
 		if randint(0,3)==0:
 			return "G" if randint(0,1)==0 else "A"
 		else: return "C"
+	else: return "N" # errors encountered suggest that our seqs contain degenerate codons, I'll keep these all as N
+#should maybe later also incorporate lowe-case letters? right now don't need this
 
 #list to store wanted copy-numbers
 copynr_list=[]
