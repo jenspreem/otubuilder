@@ -53,14 +53,9 @@ while True:
 	# x=((len(seq)*3)+100//2)//100 would round up this would mean some go over 3
 	copynr=copynr_list[orig_seq_index]
 	while (copynr>0):
-		print "copynr"+str(copynr)
-
 		x=len(seq)*3/100
 		substitutions=randint(0, x)#lets make 0 to 3 perc difference then
-		print "x"+str(x)
-		print "subnr"+str(substitutions)
 		if substitutions==0:
-			print "nosub"
 			print name
 			print seq
 			copynr=copynr-1
@@ -76,13 +71,11 @@ while True:
 				if randint(0,5)==0: #do dels
 					del_loc=randint(0,len(seq)-1)
 					seq = seq[:del_loc] + seq[del_loc+3:]#what if del_loc is in last 2 bp?
-					print "del"
 					substitutions=substitutions-1
 				else : #do subs
 					sub_loc=randint(0,len(seq)-1)
 					subnt=substitute(seq[sub_loc])
 					seq = seq[:sub_loc] + subnt + seq[sub_loc+1:]#what if subnt is the last nucleotide?
-					print "sub"
 					substitutions=substitutions-1
 		print name
 		print seq
