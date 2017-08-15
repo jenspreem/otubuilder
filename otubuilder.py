@@ -4,6 +4,26 @@ import sys
 from operator import itemgetter
 from random import randint
 
+
+def substitute(char):
+	#i'll set transition/transversion ration as 2:1
+	if char=="A":
+		if randint(0,3)==0:
+			return "C" if randint(0,1)==0 else "T"
+		else: return "G"
+	if char=="G":
+		if randint(0,3)==0:
+			return "C" if randint(0,1)==0 else "T"
+		else: return "A"
+	if char=="C":
+		if randint(0,3)==0:
+			return "G" if randint(0,1)==0 else "A"
+		else: return "T"
+	if char=="T":
+		if randint(0,3)==0:
+			return "G" if randint(0,1)==0 else "A"
+		else: return "C"
+
 #list to store wanted copy-numbers
 copynr_list=[]
 #populate from  file
@@ -18,9 +38,13 @@ f=open(str(sys.argv[1]), 'r')
 while True:
 
 # todo - count the names/seqs so you could do the copies by copienumber
+# todo - theres some control flow problem last name seq pair gets run with substitutions==0 from the end of the else statement below
+# why doesn't it calculate it from the seq?
 	name = f.readline().strip()
 	seq = f.readline().strip()
+
 	if not name: break
+	if not seq: break
 
 	#calc substitutions needed to get 3 perc
 	# should we use integer division that rounds up or down?
@@ -28,7 +52,8 @@ while True:
 	# x=((len(seq)*3)+100//2)//100 would round up this would mean some go over 3
 	x=len(seq)*3/100
 	substitutions=randint(0, x)#lets make 0 to 3 perc difference then
-
+	print "x"+str(x)
+	print "subnr"+str(substitutions)
 	if substitutions==0:
 		print "nosub"
 		print name
@@ -43,15 +68,16 @@ while True:
 		# guess rRNA could be lumped to noncoding as you won't get the negative selection of indels that are non 3 divisible
 		# right now my indels are all 3bp dels
 			if randint(0,5)==0: #do dels
-				del_loc=randint(0,len(seq))
-				seq = seq[:del_loc] + seq[del_loc+3:]
+				del_loc=randint(0,len(seq)-1)
+				seq = seq[:del_loc] + seq[del_loc+3:]#what if del_loc is in last 2 bp?
 				print "del"
+				substitutions=substitutions-1
 			else : #do subs
-				sub_loc=randint(0,len(seq))
-				subnt="A" #make the substitution table
-				seq = seq[:sub_loc] + "A" + seq[sub_loc+1:]
+				sub_loc=randint(0,len(seq)-1)
+				subnt=substitute(seq[sub_loc])
+				seq = seq[:sub_loc] + subnt + seq[sub_loc+1:]#what if subnt is the last nucleotide?
 				print "sub"
-			substitutions=substitutions-1
+				substitutions=substitutions-1
 	print name
 	print seq
 
