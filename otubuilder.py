@@ -53,6 +53,7 @@ while True:
 	# x=((len(seq)*3)+100//2)//100 would round up this would mean some go over 3
 	copynr=copynr_list[orig_seq_index]
 	while (copynr>0):
+		print "copynr"+str(copynr)
 
 		x=len(seq)*3/100
 		substitutions=randint(0, x)#lets make 0 to 3 perc difference then
@@ -62,6 +63,7 @@ while True:
 			print "nosub"
 			print name
 			print seq
+			copynr=copynr-1
 			continue
 		else:
 	
